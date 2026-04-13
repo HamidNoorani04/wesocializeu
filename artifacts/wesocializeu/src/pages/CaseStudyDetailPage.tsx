@@ -13,8 +13,8 @@ export default function CaseStudyDetailPage() {
   if (isLoading) {
     return (
       <PublicLayout>
-        <div className="pt-32 container mx-auto px-6">
-          <div className="h-96 animate-pulse bg-card" />
+        <div className="pt-32 max-w-[1200px] mx-auto px-6">
+          <div className="h-96 bg-[#f8f9fa] rounded-2xl animate-pulse" />
         </div>
       </PublicLayout>
     );
@@ -23,9 +23,9 @@ export default function CaseStudyDetailPage() {
   if (!cs) {
     return (
       <PublicLayout>
-        <div className="pt-32 container mx-auto px-6 text-center">
-          <h1 className="text-4xl font-display font-bold text-white mb-4">Not Found</h1>
-          <Link href="/case-studies" className="text-primary">Back to Case Studies</Link>
+        <div className="pt-32 max-w-[1200px] mx-auto px-6 text-center">
+          <h1 className="text-4xl font-display font-bold text-[#1a202c] mb-4">Not Found</h1>
+          <Link href="/case-studies" className="text-primary hover:underline">Back to Case Studies</Link>
         </div>
       </PublicLayout>
     );
@@ -33,61 +33,67 @@ export default function CaseStudyDetailPage() {
 
   return (
     <PublicLayout>
-      <div className="pt-28 pb-16">
-        <div className="container mx-auto px-6 max-w-4xl">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <Link href="/case-studies" className="inline-flex items-center gap-2 text-white/40 hover:text-white text-sm mb-12 transition-colors">
-              <ArrowLeft size={16} /> All Case Studies
-            </Link>
+      <div className="pt-24 pb-16">
+        {/* Hero image */}
+        <div className="relative overflow-hidden h-72 md:h-[480px]">
+          <img src={cs.imageUrl} alt={cs.title} className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1a202c]/80 via-[#1a202c]/20 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 max-w-[1200px] mx-auto px-6 pb-12">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+              <Link href="/case-studies" className="inline-flex items-center gap-2 text-white/60 hover:text-white text-sm mb-6 transition-colors">
+                <ArrowLeft size={16} /> All Case Studies
+              </Link>
+              <span className="text-primary text-xs font-semibold uppercase tracking-widest block mb-2">{cs.industry}</span>
+              <h1 className="text-3xl md:text-5xl font-display font-extrabold text-white leading-tight">{cs.title}</h1>
+              <p className="text-white/60 mt-2">Client: {cs.client}</p>
+            </motion.div>
+          </div>
+        </div>
 
-            <div className="relative overflow-hidden h-72 md:h-96 mb-12">
-              <img src={cs.imageUrl} alt={cs.title} className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
-              <div className="absolute bottom-8 left-8 right-8">
-                <div className="text-xs text-accent font-bold uppercase tracking-widest mb-2">{cs.industry}</div>
-                <h1 className="text-4xl md:text-5xl font-display font-black text-white">{cs.title}</h1>
-                <div className="text-white/50 mt-2">Client: {cs.client}</div>
+        {/* Stats bar */}
+        <div className="bg-white border-b border-black/[0.06]">
+          <div className="max-w-[1200px] mx-auto px-6">
+            <div className="grid grid-cols-3 divide-x divide-black/[0.06] py-8">
+              <div className="text-center px-6">
+                <div className="text-4xl font-display font-extrabold text-primary">{cs.roiPercent}%</div>
+                <div className="text-xs text-[#4a5568] uppercase tracking-widest mt-1">ROI</div>
+              </div>
+              <div className="text-center px-6">
+                <div className="text-4xl font-display font-extrabold text-[#1a202c]">{cs.reachMillion}M</div>
+                <div className="text-xs text-[#4a5568] uppercase tracking-widest mt-1">Total Reach</div>
+              </div>
+              <div className="text-center px-6">
+                <div className="text-4xl font-display font-extrabold text-[#1a202c]">{cs.engagementRate}%</div>
+                <div className="text-xs text-[#4a5568] uppercase tracking-widest mt-1">Engagement</div>
               </div>
             </div>
+          </div>
+        </div>
 
-            <div className="grid grid-cols-3 gap-6 mb-16 border-y border-white/10 py-8">
-              <div className="text-center">
-                <div className="text-4xl font-display font-black text-accent">{cs.roiPercent}%</div>
-                <div className="text-xs text-white/40 uppercase tracking-widest mt-1">ROI</div>
-              </div>
-              <div className="text-center border-x border-white/10">
-                <div className="text-4xl font-display font-black text-secondary">{cs.reachMillion}M</div>
-                <div className="text-xs text-white/40 uppercase tracking-widest mt-1">Total Reach</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-display font-black text-primary">{cs.engagementRate}%</div>
-                <div className="text-xs text-white/40 uppercase tracking-widest mt-1">Engagement</div>
-              </div>
+        {/* Content */}
+        <div className="max-w-[1200px] mx-auto px-6 py-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <div className="bg-white border border-black/[0.06] rounded-2xl p-6 shadow-sm">
+              <span className="text-primary text-xs font-semibold uppercase tracking-widest block mb-3">The Challenge</span>
+              <p className="text-[#4a5568] text-sm leading-relaxed">{cs.challenge}</p>
             </div>
+            <div className="bg-white border border-black/[0.06] rounded-2xl p-6 shadow-sm">
+              <span className="text-primary text-xs font-semibold uppercase tracking-widest block mb-3">Our Solution</span>
+              <p className="text-[#4a5568] text-sm leading-relaxed">{cs.solution}</p>
+            </div>
+            <div className="bg-white border border-black/[0.06] rounded-2xl p-6 shadow-sm">
+              <span className="text-primary text-xs font-semibold uppercase tracking-widest block mb-3">The Results</span>
+              <p className="text-[#4a5568] text-sm leading-relaxed">{cs.results}</p>
+            </div>
+          </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-              <div>
-                <div className="text-xs text-primary font-bold uppercase tracking-widest mb-3">The Challenge</div>
-                <p className="text-white/60 leading-relaxed">{cs.challenge}</p>
-              </div>
-              <div>
-                <div className="text-xs text-secondary font-bold uppercase tracking-widest mb-3">Our Solution</div>
-                <p className="text-white/60 leading-relaxed">{cs.solution}</p>
-              </div>
-              <div>
-                <div className="text-xs text-accent font-bold uppercase tracking-widest mb-3">The Results</div>
-                <p className="text-white/60 leading-relaxed">{cs.results}</p>
-              </div>
-            </div>
-
-            <div className="border border-primary/20 bg-primary/5 p-8 text-center">
-              <h2 className="text-2xl font-display font-bold text-white mb-4">Get Results Like These</h2>
-              <p className="text-white/50 mb-6">Ready to create your own success story?</p>
-              <Button asChild className="bg-primary hover:bg-primary/90 text-white rounded-none px-10 py-5 uppercase tracking-widest font-bold text-sm">
-                <Link href="/join/brand">Start Your Campaign</Link>
-              </Button>
-            </div>
-          </motion.div>
+          <div className="bg-white border border-t-[3px] border-t-primary border-black/[0.06] rounded-2xl shadow-[0px_24px_60px_0px_rgba(0,0,0,0.06)] p-8 md:p-12 text-center">
+            <h2 className="text-2xl font-display font-bold text-[#1a202c] mb-3">Get Results Like These</h2>
+            <p className="text-[#4a5568] text-sm mb-6">Ready to create your own success story?</p>
+            <Button asChild className="bg-primary hover:bg-primary/90 text-white px-10 py-4 font-semibold rounded-xl shadow-[0px_10px_15px_-3px_rgba(245,166,35,0.2)]">
+              <Link href="/join/brand">Start Your Campaign</Link>
+            </Button>
+          </div>
         </div>
       </div>
     </PublicLayout>

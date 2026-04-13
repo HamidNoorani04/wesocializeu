@@ -52,14 +52,17 @@ lib/
 - `/admin/enquiries` — View and manage enquiries (filter by type/status)
 - `/admin/settings` — Settings page
 
-## Theme
+## Theme (Figma Design — Light, Modern, Professional)
 
-- Dark background (`hsl(240 10% 4%)`)
-- Primary: Magenta/Pink (`hsl(320 80% 60%)`)
-- Secondary: Cyan (`hsl(190 90% 50%)`)
-- Accent: Gold (`hsl(45 95% 55%)`)
-- Font Display: Space Grotesk, Font Body: Inter
-- Sharp/brutalist edges (border-radius: 0)
+- Background: Light (`#f8f9fa` / `hsl(210 20% 98%)`)
+- Card: White (`#ffffff`)
+- Primary: Amber (`#f5a623` / `hsl(38 91% 55%)`)
+- Dark text: `#1a202c`
+- Secondary text: `#4a5568`
+- Font Display: Plus Jakarta Sans (headings, extrabold)
+- Font Body: Inter
+- Border radius: 8px (cards: `rounded-2xl`, large: `rounded-3xl`)
+- India-focused branding: "India's #1 Influencer Marketing Agency"
 
 ## Key Commands
 

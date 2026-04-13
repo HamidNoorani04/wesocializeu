@@ -1,12 +1,12 @@
 import { Link, useLocation } from "wouter";
 import { ReactNode } from "react";
-import { 
-  LayoutDashboard, 
-  Briefcase, 
-  Users, 
-  FileText, 
-  MessageSquare, 
-  Settings, 
+import {
+  LayoutDashboard,
+  Briefcase,
+  Users,
+  FileText,
+  MessageSquare,
+  Settings,
   LogOut,
   FolderKanban
 } from "lucide-react";
@@ -36,45 +36,45 @@ export function AdminLayout({ children }: { children: ReactNode }) {
   ];
 
   return (
-    <div className="min-h-screen bg-background flex text-foreground">
+    <div className="min-h-screen bg-[#f8f9fa] flex">
       {/* Sidebar */}
-      <aside className="w-64 border-r border-white/10 bg-card hidden md:flex flex-col h-screen sticky top-0">
-        <div className="p-6 border-b border-white/10">
+      <aside className="w-64 border-r border-black/[0.06] bg-white hidden md:flex flex-col h-screen sticky top-0 shadow-sm">
+        <div className="p-6 border-b border-black/[0.06]">
           <Link href="/" className="inline-block">
-            <span className="text-xl font-display font-bold tracking-tighter text-white">
+            <span className="text-xl font-display font-extrabold tracking-tight text-[#1a202c]">
               WeSocialize<span className="text-primary">U</span>
             </span>
           </Link>
-          <div className="text-xs text-white/50 uppercase tracking-widest mt-1 font-semibold">Admin Panel</div>
+          <div className="text-[10px] text-[rgba(74,85,104,0.5)] uppercase tracking-[3px] mt-1 font-semibold">Admin Panel</div>
         </div>
 
-        <nav className="flex-1 py-6 px-3 flex flex-col gap-1 overflow-y-auto">
+        <nav className="flex-1 py-6 px-4 flex flex-col gap-1 overflow-y-auto">
           {navItems.map((item) => {
-            const isActive = location === item.href || (location.startsWith(item.href) && item.href !== "/admin");
+            const isActive = location === item.href || (location.startsWith(item.href + "/") && item.href !== "/admin") || (location === item.href && item.href === "/admin");
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-none text-sm transition-all ${
-                  isActive 
-                    ? "bg-primary/10 text-primary border-l-2 border-primary font-medium" 
-                    : "text-white/70 hover:text-white hover:bg-white/5 border-l-2 border-transparent"
+                className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm transition-all ${
+                  isActive
+                    ? "bg-[rgba(245,166,35,0.08)] text-primary font-semibold border border-[rgba(245,166,35,0.15)]"
+                    : "text-[#4a5568] hover:text-[#1a202c] hover:bg-[#f8f9fa] border border-transparent"
                 }`}
               >
-                <item.icon size={18} />
+                <item.icon size={17} />
                 {item.label}
               </Link>
             );
           })}
         </nav>
 
-        <div className="p-4 border-t border-white/10">
-          <Button 
-            variant="ghost" 
-            className="w-full justify-start gap-3 rounded-none text-white/70 hover:text-white border-white/10"
+        <div className="p-4 border-t border-black/[0.06]">
+          <Button
+            variant="ghost"
+            className="w-full justify-start gap-3 rounded-xl text-[#4a5568] hover:text-[#1a202c] hover:bg-[#f8f9fa] text-sm"
             onClick={handleLogout}
           >
-            <LogOut size={18} />
+            <LogOut size={17} />
             Logout
           </Button>
         </div>
@@ -83,9 +83,9 @@ export function AdminLayout({ children }: { children: ReactNode }) {
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Mobile Header */}
-        <header className="md:hidden h-16 border-b border-white/10 bg-card flex items-center justify-between px-4 sticky top-0 z-10">
-          <span className="font-display font-bold text-lg">Admin</span>
-          <Button variant="ghost" size="sm" onClick={handleLogout}>
+        <header className="md:hidden h-16 border-b border-black/[0.06] bg-white flex items-center justify-between px-4 sticky top-0 z-10">
+          <span className="font-display font-bold text-lg text-[#1a202c]">Admin</span>
+          <Button variant="ghost" size="sm" onClick={handleLogout} className="text-[#4a5568]">
             <LogOut size={16} />
           </Button>
         </header>

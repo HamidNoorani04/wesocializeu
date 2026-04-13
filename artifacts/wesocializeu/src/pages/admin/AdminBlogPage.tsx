@@ -27,6 +27,7 @@ type BlogPost = {
 };
 
 const empty = { title: "", slug: "", excerpt: "", content: "", author: "", category: "", imageUrl: "", published: false, publishedAt: "" };
+const inputCls = "w-full bg-[#f8f9fa] border border-black/[0.05] rounded-xl px-3 py-2 text-sm text-[#1a202c] placeholder:text-[#9ca3af] outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-all";
 
 export default function AdminBlogPage() {
   const { data: posts = [] } = useListBlogPosts();
@@ -67,77 +68,77 @@ export default function AdminBlogPage() {
       <div className="max-w-5xl">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-display font-bold text-white mb-1">Blog</h1>
-            <p className="text-white/40 text-sm">{posts.length} posts</p>
+            <h1 className="text-2xl font-display font-bold text-[#1a202c] mb-1">Blog</h1>
+            <p className="text-[#4a5568] text-sm">{posts.length} posts</p>
           </div>
-          <Button onClick={() => { setCreating(true); setEditing(null); setForm(empty); }} className="bg-primary text-white rounded-none gap-2">
+          <Button onClick={() => { setCreating(true); setEditing(null); setForm(empty); }} className="bg-primary text-white rounded-xl gap-2 shadow-[0px_4px_12px_0px_rgba(245,166,35,0.2)]">
             <Plus size={16} /> New Post
           </Button>
         </div>
 
         {showForm && (
-          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="bg-card border border-white/10 p-6 mb-8">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-display font-bold text-white">{editing ? "Edit Post" : "New Post"}</h2>
-              <button onClick={() => { setCreating(false); setEditing(null); }} className="text-white/40 hover:text-white"><X size={20} /></button>
+          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="bg-white border border-t-[3px] border-t-primary border-black/[0.06] rounded-2xl shadow-sm p-6 mb-6">
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="text-base font-display font-bold text-[#1a202c]">{editing ? "Edit Post" : "New Post"}</h2>
+              <button onClick={() => { setCreating(false); setEditing(null); }} className="text-[#4a5568] hover:text-[#1a202c]"><X size={18} /></button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               <div className="md:col-span-2">
-                <label className="block text-xs text-white/50 uppercase tracking-widest mb-1">Title</label>
-                <input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} className="w-full bg-background border border-white/15 text-white px-3 py-2 focus:outline-none focus:border-primary text-sm" />
+                <label className="block text-xs font-medium text-[#4a5568] mb-1">Title</label>
+                <input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} className={inputCls} />
               </div>
               <div>
-                <label className="block text-xs text-white/50 uppercase tracking-widest mb-1">Slug</label>
-                <input value={form.slug} onChange={(e) => setForm({ ...form, slug: e.target.value })} placeholder="auto-generated" className="w-full bg-background border border-white/15 text-white px-3 py-2 focus:outline-none focus:border-primary text-sm" />
+                <label className="block text-xs font-medium text-[#4a5568] mb-1">Slug</label>
+                <input value={form.slug} onChange={(e) => setForm({ ...form, slug: e.target.value })} placeholder="auto-generated" className={inputCls} />
               </div>
               <div>
-                <label className="block text-xs text-white/50 uppercase tracking-widest mb-1">Author</label>
-                <input value={form.author} onChange={(e) => setForm({ ...form, author: e.target.value })} className="w-full bg-background border border-white/15 text-white px-3 py-2 focus:outline-none focus:border-primary text-sm" />
+                <label className="block text-xs font-medium text-[#4a5568] mb-1">Author</label>
+                <input value={form.author} onChange={(e) => setForm({ ...form, author: e.target.value })} className={inputCls} />
               </div>
               <div>
-                <label className="block text-xs text-white/50 uppercase tracking-widest mb-1">Category</label>
-                <input value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} className="w-full bg-background border border-white/15 text-white px-3 py-2 focus:outline-none focus:border-primary text-sm" />
+                <label className="block text-xs font-medium text-[#4a5568] mb-1">Category</label>
+                <input value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} className={inputCls} />
               </div>
               <div>
-                <label className="block text-xs text-white/50 uppercase tracking-widest mb-1">Image URL</label>
-                <input value={form.imageUrl} onChange={(e) => setForm({ ...form, imageUrl: e.target.value })} className="w-full bg-background border border-white/15 text-white px-3 py-2 focus:outline-none focus:border-primary text-sm" />
+                <label className="block text-xs font-medium text-[#4a5568] mb-1">Image URL</label>
+                <input value={form.imageUrl} onChange={(e) => setForm({ ...form, imageUrl: e.target.value })} className={inputCls} />
               </div>
               <div className="md:col-span-2">
-                <label className="block text-xs text-white/50 uppercase tracking-widest mb-1">Excerpt</label>
-                <textarea value={form.excerpt} onChange={(e) => setForm({ ...form, excerpt: e.target.value })} rows={2} className="w-full bg-background border border-white/15 text-white px-3 py-2 focus:outline-none focus:border-primary text-sm resize-none" />
+                <label className="block text-xs font-medium text-[#4a5568] mb-1">Excerpt</label>
+                <textarea value={form.excerpt} onChange={(e) => setForm({ ...form, excerpt: e.target.value })} rows={2} className={`${inputCls} resize-none`} />
               </div>
               <div className="md:col-span-2">
-                <label className="block text-xs text-white/50 uppercase tracking-widest mb-1">Content</label>
-                <textarea value={form.content} onChange={(e) => setForm({ ...form, content: e.target.value })} rows={8} className="w-full bg-background border border-white/15 text-white px-3 py-2 focus:outline-none focus:border-primary text-sm resize-none font-mono" />
+                <label className="block text-xs font-medium text-[#4a5568] mb-1">Content</label>
+                <textarea value={form.content} onChange={(e) => setForm({ ...form, content: e.target.value })} rows={8} className={`${inputCls} resize-none font-mono text-xs`} />
               </div>
               <div className="flex items-center gap-3">
                 <input type="checkbox" id="published" checked={form.published} onChange={(e) => setForm({ ...form, published: e.target.checked })} className="w-4 h-4 accent-primary" />
-                <label htmlFor="published" className="text-sm text-white/70">Published</label>
+                <label htmlFor="published" className="text-sm text-[#4a5568]">Published</label>
               </div>
             </div>
             <div className="flex gap-3">
-              <Button onClick={handleSave} className="bg-primary text-white rounded-none">
+              <Button onClick={handleSave} className="bg-primary text-white rounded-xl">
                 {editing ? "Save Changes" : "Create Post"}
               </Button>
-              <Button variant="outline" onClick={() => { setCreating(false); setEditing(null); }} className="rounded-none border-white/20 text-white">Cancel</Button>
+              <Button variant="outline" onClick={() => { setCreating(false); setEditing(null); }} className="rounded-xl border-black/10 text-[#4a5568]">Cancel</Button>
             </div>
           </motion.div>
         )}
 
-        <div className="space-y-px bg-white/5">
+        <div className="flex flex-col gap-2">
           {posts.map((post) => (
-            <div key={post.id} className="bg-background hover:bg-card transition-colors flex items-center gap-4 p-5">
-              <img src={post.imageUrl} alt={post.title} className="w-16 h-12 object-cover shrink-0" />
+            <div key={post.id} className="bg-white border border-black/[0.06] rounded-2xl flex items-center gap-4 p-4 shadow-sm hover:shadow-md transition-all">
+              <img src={post.imageUrl} alt={post.title} className="w-16 h-12 object-cover rounded-xl flex-shrink-0" />
               <div className="flex-1 min-w-0">
-                <div className="text-white font-medium truncate">{post.title}</div>
-                <div className="text-white/40 text-xs">{post.category} · {post.author}</div>
+                <div className="text-[#1a202c] font-medium text-sm truncate">{post.title}</div>
+                <div className="text-[rgba(74,85,104,0.5)] text-xs mt-0.5">{post.category} · {post.author}</div>
               </div>
-              <span className={`text-xs px-2 py-0.5 font-bold uppercase tracking-wider shrink-0 ${post.published ? "bg-green-500/20 text-green-400" : "bg-white/10 text-white/40"}`}>
+              <span className={`text-[10px] px-2 py-1 font-semibold uppercase tracking-wider rounded-lg flex-shrink-0 ${post.published ? "bg-green-50 text-green-600 border border-green-100" : "bg-[#f8f9fa] text-[#4a5568] border border-black/[0.06]"}`}>
                 {post.published ? "Published" : "Draft"}
               </span>
-              <div className="flex items-center gap-2 shrink-0">
-                <Button size="sm" variant="ghost" onClick={() => handleEdit(post)} className="text-white/50 hover:text-white rounded-none"><Pencil size={15} /></Button>
-                <Button size="sm" variant="ghost" onClick={() => handleDelete(post.id)} className="text-destructive/60 hover:text-destructive rounded-none"><Trash2 size={15} /></Button>
+              <div className="flex items-center gap-1 flex-shrink-0">
+                <Button size="sm" variant="ghost" onClick={() => handleEdit(post)} className="text-[#4a5568] hover:text-[#1a202c] rounded-xl"><Pencil size={14} /></Button>
+                <Button size="sm" variant="ghost" onClick={() => handleDelete(post.id)} className="text-destructive/50 hover:text-destructive rounded-xl"><Trash2 size={14} /></Button>
               </div>
             </div>
           ))}
