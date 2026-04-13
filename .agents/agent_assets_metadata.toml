@@ -1,0 +1,50 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "HeCnbt-EYJ5x7V3roT3ke"
+uri = "file://artifacts/wesocializeu/public/images/hero.png"
+type = "image"
+title = "Hero image for agency"
+
+[[generated]]
+id = "flGuU4kweyvipL4xlFfSK"
+uri = "file://artifacts/wesocializeu/public/images/service-tiktok.png"
+type = "image"
+title = "Service - TikTok Growth"
+
+[[generated]]
+id = "hZ9a6fRkRMLM8kPyHhRV1"
+uri = "file://artifacts/wesocializeu/public/images/service-campaigns.png"
+type = "image"
+title = "Service - Brand Campaigns"
+
+[[generated]]
+id = "PtSRed-8jtRC9kQWElYrR"
+uri = "file://artifacts/wesocializeu/public/images/creator-1.png"
+type = "image"
+title = "Creator Avatar - Fashion"
+
+[[generated]]
+id = "DRA1Xq_T-ddpE6iG3djGa"
+uri = "file://artifacts/wesocializeu/public/images/creator-2.png"
+type = "image"
+title = "Creator Avatar - Tech"
+
+[[generated]]
+id = "1Z-hzrbrxGw2ywq70B6_o"
+uri = "file://artifacts/wesocializeu/public/images/case-study-1.png"
+type = "image"
+title = "Case Study - Sneaker Brand"
+
+[[generated]]
+id = "8EBpvc8VEBZnHyoioydXT"
+uri = "file://artifacts/wesocializeu/public/images/case-study-2.png"
+type = "image"
+title = "Case Study - Beauty Launch"
+
+[[generated]]
+id = "Y4n0Q_4l5nLlXVt599YkQ"
+uri = "file://artifacts/wesocializeu/public/images/blog-1.png"
+type = "image"
+title = "Blog Post - Algorithm Changes"

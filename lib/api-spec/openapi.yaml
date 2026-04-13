@@ -3,20 +3,33 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: WeSocializeU Influencer Marketing Agency API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: services
+    description: Agency services
+  - name: creators
+    description: Creator profiles
+  - name: case-studies
+    description: Case studies
+  - name: blog
+    description: Blog posts
+  - name: enquiries
+    description: Contact and join enquiries
+  - name: admin
+    description: Admin operations
+  - name: stats
+    description: Dashboard stats and summaries
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,6 +37,602 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /services:
+    get:
+      operationId: listServices
+      tags: [services]
+      summary: List all services
+      responses:
+        "200":
+          description: List of services
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Service"
+    post:
+      operationId: createService
+      tags: [services]
+      summary: Create a service (admin)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateServiceBody"
+      responses:
+        "201":
+          description: Created service
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Service"
+
+  /services/{id}:
+    get:
+      operationId: getService
+      tags: [services]
+      summary: Get a service by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Service
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Service"
+        "404":
+          description: Not found
+    put:
+      operationId: updateService
+      tags: [services]
+      summary: Update a service (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateServiceBody"
+      responses:
+        "200":
+          description: Updated service
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Service"
+    delete:
+      operationId: deleteService
+      tags: [services]
+      summary: Delete a service (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /creators:
+    get:
+      operationId: listCreators
+      tags: [creators]
+      summary: List creators
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+        - name: featured
+          in: query
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: List of creators
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Creator"
+    post:
+      operationId: createCreator
+      tags: [creators]
+      summary: Create a creator (admin)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCreatorBody"
+      responses:
+        "201":
+          description: Created creator
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Creator"
+
+  /creators/{id}:
+    get:
+      operationId: getCreator
+      tags: [creators]
+      summary: Get a creator by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Creator
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Creator"
+        "404":
+          description: Not found
+    put:
+      operationId: updateCreator
+      tags: [creators]
+      summary: Update a creator (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCreatorBody"
+      responses:
+        "200":
+          description: Updated creator
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Creator"
+    delete:
+      operationId: deleteCreator
+      tags: [creators]
+      summary: Delete a creator (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /case-studies:
+    get:
+      operationId: listCaseStudies
+      tags: [case-studies]
+      summary: List case studies
+      parameters:
+        - name: featured
+          in: query
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: List of case studies
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CaseStudy"
+    post:
+      operationId: createCaseStudy
+      tags: [case-studies]
+      summary: Create a case study (admin)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCaseStudyBody"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CaseStudy"
+
+  /case-studies/{id}:
+    get:
+      operationId: getCaseStudy
+      tags: [case-studies]
+      summary: Get a case study by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Case study
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CaseStudy"
+        "404":
+          description: Not found
+    put:
+      operationId: updateCaseStudy
+      tags: [case-studies]
+      summary: Update a case study (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCaseStudyBody"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CaseStudy"
+    delete:
+      operationId: deleteCaseStudy
+      tags: [case-studies]
+      summary: Delete a case study (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /blog:
+    get:
+      operationId: listBlogPosts
+      tags: [blog]
+      summary: List blog posts
+      parameters:
+        - name: published
+          in: query
+          schema:
+            type: boolean
+        - name: category
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of blog posts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/BlogPost"
+    post:
+      operationId: createBlogPost
+      tags: [blog]
+      summary: Create a blog post (admin)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateBlogPostBody"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BlogPost"
+
+  /blog/{id}:
+    get:
+      operationId: getBlogPost
+      tags: [blog]
+      summary: Get a blog post by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Blog post
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BlogPost"
+        "404":
+          description: Not found
+    put:
+      operationId: updateBlogPost
+      tags: [blog]
+      summary: Update a blog post (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateBlogPostBody"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BlogPost"
+    delete:
+      operationId: deleteBlogPost
+      tags: [blog]
+      summary: Delete a blog post (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /enquiries:
+    get:
+      operationId: listEnquiries
+      tags: [enquiries]
+      summary: List all enquiries (admin)
+      parameters:
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum: [contact, brand, creator]
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [new, read, replied]
+      responses:
+        "200":
+          description: List of enquiries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Enquiry"
+    post:
+      operationId: submitEnquiry
+      tags: [enquiries]
+      summary: Submit an enquiry (public)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateEnquiryBody"
+      responses:
+        "201":
+          description: Submitted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Enquiry"
+
+  /enquiries/{id}:
+    get:
+      operationId: getEnquiry
+      tags: [enquiries]
+      summary: Get an enquiry by ID (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Enquiry
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Enquiry"
+    put:
+      operationId: updateEnquiry
+      tags: [enquiries]
+      summary: Update enquiry status (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateEnquiryBody"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Enquiry"
+    delete:
+      operationId: deleteEnquiry
+      tags: [enquiries]
+      summary: Delete an enquiry (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /admin/login:
+    post:
+      operationId: adminLogin
+      tags: [admin]
+      summary: Admin login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdminLoginBody"
+      responses:
+        "200":
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminLoginResponse"
+        "401":
+          description: Invalid credentials
+
+  /admin/logout:
+    post:
+      operationId: adminLogout
+      tags: [admin]
+      summary: Admin logout
+      responses:
+        "200":
+          description: Logged out
+
+  /admin/me:
+    get:
+      operationId: getAdminMe
+      tags: [admin]
+      summary: Get current admin session
+      responses:
+        "200":
+          description: Admin session info
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminSession"
+        "401":
+          description: Not authenticated
+
+  /stats/dashboard:
+    get:
+      operationId: getDashboardStats
+      tags: [stats]
+      summary: Get dashboard summary stats
+      responses:
+        "200":
+          description: Dashboard stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardStats"
+
+  /stats/enquiries-by-type:
+    get:
+      operationId: getEnquiriesByType
+      tags: [stats]
+      summary: Get enquiry counts grouped by type
+      responses:
+        "200":
+          description: Enquiry breakdown
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EnquiryTypeCount"
+
+  /stats/recent-enquiries:
+    get:
+      operationId: getRecentEnquiries
+      tags: [stats]
+      summary: Get recent 5 enquiries
+      responses:
+        "200":
+          description: Recent enquiries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Enquiry"
+
+  /stats/featured-creators:
+    get:
+      operationId: getFeaturedCreators
+      tags: [stats]
+      summary: Get featured creators for homepage
+      responses:
+        "200":
+          description: Featured creators
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Creator"
+
+  /stats/featured-case-studies:
+    get:
+      operationId: getFeaturedCaseStudies
+      tags: [stats]
+      summary: Get featured case studies
+      responses:
+        "200":
+          description: Featured case studies
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CaseStudy"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +643,442 @@ components:
       required:
         - status
 
+    Service:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        slug:
+          type: string
+        description:
+          type: string
+        shortDescription:
+          type: string
+        icon:
+          type: string
+        imageUrl:
+          type: string
+        features:
+          type: array
+          items:
+            type: string
+        order:
+          type: integer
+        createdAt:
+          type: string
+      required:
+        - id
+        - title
+        - slug
+        - description
+        - shortDescription
+        - icon
+        - features
+        - order
+        - createdAt
+
+    CreateServiceBody:
+      type: object
+      properties:
+        title:
+          type: string
+        slug:
+          type: string
+        description:
+          type: string
+        shortDescription:
+          type: string
+        icon:
+          type: string
+        imageUrl:
+          type: string
+        features:
+          type: array
+          items:
+            type: string
+        order:
+          type: integer
+      required:
+        - title
+        - slug
+        - description
+        - shortDescription
+        - icon
+        - features
+
+    Creator:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        handle:
+          type: string
+        category:
+          type: string
+        bio:
+          type: string
+        imageUrl:
+          type: string
+        instagramFollowers:
+          type: integer
+        tiktokFollowers:
+          type: integer
+        youtubeFollowers:
+          type: integer
+        engagementRate:
+          type: number
+        featured:
+          type: boolean
+        createdAt:
+          type: string
+      required:
+        - id
+        - name
+        - handle
+        - category
+        - bio
+        - imageUrl
+        - instagramFollowers
+        - tiktokFollowers
+        - youtubeFollowers
+        - engagementRate
+        - featured
+        - createdAt
+
+    CreateCreatorBody:
+      type: object
+      properties:
+        name:
+          type: string
+        handle:
+          type: string
+        category:
+          type: string
+        bio:
+          type: string
+        imageUrl:
+          type: string
+        instagramFollowers:
+          type: integer
+        tiktokFollowers:
+          type: integer
+        youtubeFollowers:
+          type: integer
+        engagementRate:
+          type: number
+        featured:
+          type: boolean
+      required:
+        - name
+        - handle
+        - category
+        - bio
+        - imageUrl
+        - instagramFollowers
+        - tiktokFollowers
+        - youtubeFollowers
+        - engagementRate
+        - featured
+
+    CaseStudy:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        client:
+          type: string
+        industry:
+          type: string
+        summary:
+          type: string
+        challenge:
+          type: string
+        solution:
+          type: string
+        results:
+          type: string
+        imageUrl:
+          type: string
+        roiPercent:
+          type: integer
+        reachMillion:
+          type: number
+        engagementRate:
+          type: number
+        featured:
+          type: boolean
+        createdAt:
+          type: string
+      required:
+        - id
+        - title
+        - client
+        - industry
+        - summary
+        - challenge
+        - solution
+        - results
+        - imageUrl
+        - roiPercent
+        - reachMillion
+        - engagementRate
+        - featured
+        - createdAt
+
+    CreateCaseStudyBody:
+      type: object
+      properties:
+        title:
+          type: string
+        client:
+          type: string
+        industry:
+          type: string
+        summary:
+          type: string
+        challenge:
+          type: string
+        solution:
+          type: string
+        results:
+          type: string
+        imageUrl:
+          type: string
+        roiPercent:
+          type: integer
+        reachMillion:
+          type: number
+        engagementRate:
+          type: number
+        featured:
+          type: boolean
+      required:
+        - title
+        - client
+        - industry
+        - summary
+        - challenge
+        - solution
+        - results
+        - imageUrl
+        - roiPercent
+        - reachMillion
+        - engagementRate
+        - featured
+
+    BlogPost:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        slug:
+          type: string
+        excerpt:
+          type: string
+        content:
+          type: string
+        author:
+          type: string
+        category:
+          type: string
+        imageUrl:
+          type: string
+        published:
+          type: boolean
+        publishedAt:
+          type: string
+        createdAt:
+          type: string
+      required:
+        - id
+        - title
+        - slug
+        - excerpt
+        - content
+        - author
+        - category
+        - imageUrl
+        - published
+        - createdAt
+
+    CreateBlogPostBody:
+      type: object
+      properties:
+        title:
+          type: string
+        slug:
+          type: string
+        excerpt:
+          type: string
+        content:
+          type: string
+        author:
+          type: string
+        category:
+          type: string
+        imageUrl:
+          type: string
+        published:
+          type: boolean
+        publishedAt:
+          type: string
+      required:
+        - title
+        - slug
+        - excerpt
+        - content
+        - author
+        - category
+        - imageUrl
+        - published
+
+    Enquiry:
+      type: object
+      properties:
+        id:
+          type: integer
+        type:
+          type: string
+          enum: [contact, brand, creator]
+        name:
+          type: string
+        email:
+          type: string
+        company:
+          type: string
+        message:
+          type: string
+        budget:
+          type: string
+        platform:
+          type: string
+        followersCount:
+          type: string
+        status:
+          type: string
+          enum: [new, read, replied]
+        createdAt:
+          type: string
+      required:
+        - id
+        - type
+        - name
+        - email
+        - message
+        - status
+        - createdAt
+
+    CreateEnquiryBody:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [contact, brand, creator]
+        name:
+          type: string
+        email:
+          type: string
+        company:
+          type: string
+        message:
+          type: string
+        budget:
+          type: string
+        platform:
+          type: string
+        followersCount:
+          type: string
+      required:
+        - type
+        - name
+        - email
+        - message
+
+    UpdateEnquiryBody:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [new, read, replied]
+      required:
+        - status
+
+    AdminLoginBody:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      required:
+        - username
+        - password
+
+    AdminLoginResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+      required:
+        - success
+        - message
+
+    AdminSession:
+      type: object
+      properties:
+        authenticated:
+          type: boolean
+        username:
+          type: string
+      required:
+        - authenticated
+
+    DashboardStats:
+      type: object
+      properties:
+        totalServices:
+          type: integer
+        totalCreators:
+          type: integer
+        totalCaseStudies:
+          type: integer
+        totalBlogPosts:
+          type: integer
+        totalEnquiries:
+          type: integer
+        newEnquiries:
+          type: integer
+        publishedPosts:
+          type: integer
+        featuredCreators:
+          type: integer
+      required:
+        - totalServices
+        - totalCreators
+        - totalCaseStudies
+        - totalBlogPosts
+        - totalEnquiries
+        - newEnquiries
+        - publishedPosts
+        - featuredCreators
+
+    EnquiryTypeCount:
+      type: object
+      properties:
+        type:
+          type: string
+        count:
+          type: integer
+      required:
+        - type
+        - count
